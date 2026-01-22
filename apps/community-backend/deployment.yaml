@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: community-backend
+  labels:
+    app: community-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: community-backend
+  template:
+    metadata:
+      labels:
+        app: community-backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/emmauopeople/1community-app-backend:sha-placeholder
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "dev"
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
