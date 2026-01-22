@@ -14,6 +14,10 @@ spec:
       labels:
         app: community-backend
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
       containers:
         - name: backend
           image: ghcr.io/emmauopeople/1community-app-backend:sha-placeholder
@@ -42,5 +46,4 @@ spec:
               cpu: "250m"
               memory: "256Mi"
           securityContext:
-            runAsNonRoot: true
             allowPrivilegeEscalation: false
