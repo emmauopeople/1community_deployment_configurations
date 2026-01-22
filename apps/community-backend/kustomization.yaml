@@ -7,4 +7,4 @@ resources:
 
 images:
   - name: ghcr.io/emmauopeople/1community-app-backend
-    newTag: sha-placeholder
+    newTag: sha-1aa565445d02e2cf8d2ab84ea082c0e2085b3ade
