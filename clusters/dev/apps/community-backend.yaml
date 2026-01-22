@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: community-backend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/emmauopeople/1community_deployment_configurations.git
+    targetRevision: main
+    path: apps/community-backend
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: community
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
